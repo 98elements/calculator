@@ -1,0 +1,34 @@
+buildscript {
+    ext.kotlin_version = '1.2.61'
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.2.61'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://dl.bintray.com/spekframework/spek-dev" }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    testImplementation 'org.spekframework.spek2:spek-dsl-jvm:2.0.0-alpha.1'
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+    testRuntimeOnly 'org.spekframework.spek2:spek-runner-junit5:2.0.0-alpha.1'
+}
+
+test {
+    useJUnitPlatform {
+        includeEngines 'spek2'
+    }
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
